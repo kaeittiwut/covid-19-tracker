@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { FormControl, MenuItem, Select } from '@material-ui/core';
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  Card,
+  CardContent,
+} from '@material-ui/core';
+import InfoBox from './component/InfoBox';
+import Map from './component/Map';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -28,19 +36,36 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="app_header">
-        <h1>COVID-19 TRACKER</h1>
-        <FormControl className="app_dropdown">
-          <Select variant="outlined" onChange={onCountryChange} value={country}>
-            <MenuItem value="worldwide">Worldwide</MenuItem>
-            {countries.map((country) => (
-              <MenuItem value={country.value}>{country.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+    <div className="app">
+      <div className="app_left">
+        <div className="app_header">
+          <h1>COVID-19 TRACKER</h1>
+          <FormControl className="app_dropdown">
+            <Select
+              variant="outlined"
+              onChange={onCountryChange}
+              value={country}
+            >
+              <MenuItem value="worldwide">Worldwide</MenuItem>
+              {countries.map((country) => (
+                <MenuItem value={country.value}>{country.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+        <div className="app_stats">
+          <InfoBox title="Coronavirus Cases" cases={200} total={2000} />
+          <InfoBox title="Recovered" cases={300} total={3000} />
+          <InfoBox title="Deaths" cases={400} total={20} />
+        </div>
+        <Map />
       </div>
-      <div className="app_stats"></div>
+      <Card className="app_right">
+        <CardContent>
+          <h3>Live Case by Country</h3>
+          <h3>Worldwide new cases</h3>
+        </CardContent>
+      </Card>
     </div>
   );
 }
